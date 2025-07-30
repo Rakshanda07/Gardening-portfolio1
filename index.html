@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Gardening Journal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f3f7f0;
+      color: #333;
+      padding: 20px;
+    }
+    header {
+      background-color: #6dbf56;
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    h1 {
+      margin: 0;
+    }
+    .intro {
+      margin-top: 20px;
+      font-size: 1.2rem;
+    }
+    .plant-list {
+  margin-top: 40px;
+}
+
+.plants {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.plant-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 15px;
+  width: 250px;
+}
+
+.plant-card img {
+  width: 100%;
+  border-radius: 8px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.plant-card h3 {
+  margin-top: 10px;
+  margin-bottom: 5px;
+  color: #4b944b;
+}
+
+.add-plant {
+  margin-top: 40px;
+}
+
+#plantForm {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  gap: 10px;
+}
+
+#plantForm input,
+#plantForm button {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+#plantForm button {
+  background-color: #6dbf56;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+#plantForm button:hover {
+  background-color: #5aa048;
+}
+
+.plant-card button {
+  margin-top: 10px;
+  margin-right: 5px;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.plant-card button.edit {
+  background-color: #ffc107;
+  color: black;
+}
+
+.plant-card button.delete {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Modal Styling */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+}
+
+.modal-content input {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-actions button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.modal-actions button[type="submit"] {
+  background-color: #6dbf56;
+  color: white;
+}
+
+.modal-actions #cancelEdit {
+  background-color: #dc3545;
+  color: white;
+}
+
+.plants {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-top: 20px;
+  justify-content: center; /* center on large screens */
+}
+/* 📱 Mobile Responsive Styles */
+@media (max-width: 600px) {
+  body {
+    padding: 10px;
+  }
+
+  header, .plant-card, .modal-content {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .plant-card {
+    width: 100%;
+  }
+
+  #plantForm,
+  .modal-content form {
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  .plants {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+.modal-content {
+  max-height: 90vh;
+  overflow-y: auto;
+}
+p, input, button {
+  font-size: 1rem;
+}
+@media (max-width: 400px) {
+  h1, h2 {
+    font-size: 1.2rem;
+  }
+
+  .plant-card h3 {
+    font-size: 1rem;
+  }
+}
+
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🌱 My Gardening Journal</h1>
+    <p>Tracking my plant's journey and garden adventures!</p>
+  </header>
+
+  <section class="intro">
+    <p>Hi, I'm Rakshanda. This is my personal gardening space where I log my plants, share growth tips, and celebrate the green joy 🌿.</p>
+  </section>
+<section class="plant-list">
+  <h2>🪴 My Plants</h2>
+  <div class="plants">
+    <div class="plant-card">
+      <img src="https://images.unsplash.com/photo-1615484477870-d0a01b1a1517" alt="Snake Plant">
+      <h3>Snake Plant</h3>
+      <p>Low-maintenance, great for indoor air purification. Water once every 10 days.</p>
+    </div>
+    <div class="plant-card">
+      <img src="https://images.unsplash.com/photo-1524594154903-41b9be6b0a8e" alt="Aloe Vera">
+      <h3>Aloe Vera</h3>
+      <p>Medicinal plant. Needs bright light and little water.</p>
+    </div>
+    <div class="plant-card">
+      <img src="https://images.unsplash.com/photo-1578898887586-2030b3c9cf4d" alt="Peace Lily">
+      <h3>Peace Lily</h3>
+      <p>Beautiful flowers. Prefers shade and moist soil.</p>
+    </div>
+  </div>
+</section>
+<section class="add-plant">
+  <h2>➕ Add a New Plant</h2>
+  <form id="plantForm">
+    <input type="text" id="plantName" placeholder="Plant Name" required>
+    <input type="url" id="plantImage" placeholder="Image URL" required>
+    <input type="text" id="plantTip" placeholder="Care Tip" required>
+    <button type="submit">Add Plant</button>
+  </form>
+</section>
+
+<!-- Edit Modal -->
+<div id="editModal" class="modal">
+  <div class="modal-content">
+    <h2>Edit Plant</h2>
+    <form id="editForm">
+      <input type="text" id="editName" placeholder="Plant Name" required>
+      <input type="url" id="editImage" placeholder="Image URL" required>
+      <input type="text" id="editTip" placeholder="Care Tip" required>
+      <div class="modal-actions">
+        <button type="submit">Save</button>
+        <button type="button" id="cancelEdit">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById('plantForm');
+  const plantsContainer = document.querySelector('.plants');
+
+  const modal = document.getElementById('editModal');
+  const editForm = document.getElementById('editForm');
+  const cancelBtn = document.getElementById('cancelEdit');
+
+  let editingIndex = null;
+
+  // Load from storage
+  window.addEventListener('DOMContentLoaded', () => {
+    const saved = JSON.parse(localStorage.getItem('myPlants')) || [];
+    saved.forEach((plant, index) => addPlantToDOM(plant, index));
+  });
+
+  // Add plant
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const name = document.getElementById('plantName').value;
+    const image = document.getElementById('plantImage').value;
+    const tip = document.getElementById('plantTip').value;
+
+    const newPlant = { name, image, tip };
+    const plants = JSON.parse(localStorage.getItem('myPlants')) || [];
+    plants.push(newPlant);
+    localStorage.setItem('myPlants', JSON.stringify(plants));
+
+    addPlantToDOM(newPlant, plants.length - 1);
+    form.reset();
+  });
+
+  // Add to DOM
+  function addPlantToDOM(plant, index) {
+    const card = document.createElement('div');
+    card.className = 'plant-card';
+
+    card.innerHTML = `
+      <img src="${plant.image}" alt="${plant.name}">
+      <h3>${plant.name}</h3>
+      <p>${plant.tip}</p>
+      <button class="edit">📝 Edit</button>
+      <button class="delete">🗑️ Delete</button>
+    `;
+
+    // DELETE
+    card.querySelector('.delete').addEventListener('click', () => {
+      const plants = JSON.parse(localStorage.getItem('myPlants')) || [];
+      plants.splice(index, 1);
+      localStorage.setItem('myPlants', JSON.stringify(plants));
+      location.reload();
+    });
+
+    // EDIT - open modal
+    card.querySelector('.edit').addEventListener('click', () => {
+      const plants = JSON.parse(localStorage.getItem('myPlants')) || [];
+      const current = plants[index];
+      document.getElementById('editName').value = current.name;
+      document.getElementById('editImage').value = current.image;
+      document.getElementById('editTip').value = current.tip;
+      editingIndex = index;
+      modal.style.display = 'flex';
+    });
+
+    plantsContainer.appendChild(card);
+  }
+
+  // Save Edit
+  editForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const updated = {
+      name: document.getElementById('editName').value,
+      image: document.getElementById('editImage').value,
+      tip: document.getElementById('editTip').value
+    };
+    const plants = JSON.parse(localStorage.getItem('myPlants')) || [];
+    plants[editingIndex] = updated;
+    localStorage.setItem('myPlants', JSON.stringify(plants));
+    modal.style.display = 'none';
+    location.reload();
+  });
+
+  // Cancel Edit
+  cancelBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+    editingIndex = null;
+  });
+</script>
+
+
+</body>
+</html>
